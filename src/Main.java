@@ -7,11 +7,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		game = new Game();
 		gui = new GUI();
+		game = new Game(gui);
 		
-		gui.setupWindow(game.GAME_NAME, game.WINDOW_WIDTH, game.WINDOW_HEIGHT);
-		gui.setupGame();
+		game.startGame();
 	}
 
 }

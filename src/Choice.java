@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +8,9 @@ import javax.imageio.ImageIO;
 
 public enum Choice {
 
-	ROCK("rock"), PAPER("paper"), SCISSORS("scissors");
+	ROCK("rock", Game.CENTER_X - 32 - 64, 300), 
+	PAPER("paper", Game.CENTER_X - 32, 300), 
+	SCISSORS("scissors", Game.CENTER_X + 32 + 64, 300);
 	
 	private String choiceAsString;
 	private String imgPath;
@@ -16,9 +19,16 @@ public enum Choice {
 	public static int IMG_WIDTH = 64;
 	public static int IMG_HEIGHT = 64;
 	
-	Choice(String choice) {
+	//private Rectangle rectangle;
+	
+	private int x;
+	private int y;
+	
+	Choice(String choice, int x, int y) {
 		choiceAsString = choice;
 		imgPath = choice + ".jpg";
+		this.x = x;
+		this.y = y;
 		
 		try {
 			img = ImageIO.read(new File(getClass().getResource(imgPath).toURI()));
@@ -30,10 +40,33 @@ public enum Choice {
 			e.printStackTrace();
 		}
 		
+		//rectangle = new Rectangle
 	}
 	
+	public void setCoords(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
 	
 	public BufferedImage getImage() {
 		return img;
+	}
+	
+	public String getChoiceAsString() {
+		return choiceAsString;
+	}
+	
+	public Choice[] getChoices() {
+		Choice[] choices = {Choice.ROCK, Choice.PAPER, Choice.SCISSORS};
+		return choices;
+	
 	}
 }
