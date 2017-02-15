@@ -3,6 +3,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +13,7 @@ public class GUI {
 	
 	JFrame frame;
 	Graphics g;
+	Game game;
 	
 	
 	public void setupWindow(String title, int width, int height) {
@@ -22,24 +25,30 @@ public class GUI {
 		frame.setBackground(Color.WHITE);
 		frame.setLocationRelativeTo(null);
 		g = frame.getGraphics();
+		
+		frame.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				game.receiveClick(e.getPoint());
+			}
+		});
 	}
 	
 	public void setupGame() {
 		int centerX = (Game.WINDOW_WIDTH / 2) - (Choice.IMG_WIDTH / 2);
 		
-		g.drawImage(Choice.ROCK.getImage(), centerX - 32 - 64, 300, null);
-		//g.drawImage(Choice.PAPER.getImage(), centerX, 300, null);
-		//g.drawImage(Choice.SCISSORS.getImage(), centerX + 32 + 64, 300, null);
+		g.drawImage(Choice.ROCK.getImage(), Choice.ROCK.getX(), Choice.ROCK.getY(), null);
+		g.drawImage(Choice.PAPER.getImage(), Choice.PAPER.getX(), Choice.PAPER.getY(), null);
+		g.drawImage(Choice.SCISSORS.getImage(), Choice.SCISSORS.getX(), Choice.SCISSORS.getY(), null);
 		
-		//g.drawImage(Choice.ROCK.getImage(), Choice.ROCK.getX(), Choice.ROCK.getY(), null);
-		//g.drawImage(Choice.PAPER.getImage(), Choice.PAPER.getX(), Choice.PAPER.getY(), null);
-		//g.drawImage(Choice.SCISSORS.getImage(), Choice.SCISSORS.getX(), Choice.SCISSORS.getY(), null);
 		drawCenteredString(g, Game.MSG_START, 100);
-		
 	}
 
 	public JFrame getFrame() {
 		return frame;
+	}
+	
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 	

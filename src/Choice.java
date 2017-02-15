@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public enum Choice {
 
-	ROCK("rock", Game.CENTER_X - 32 - 64, 300), 
+	ROCK("rock", Game.CENTER_X - 32 - 64 - 64, 300),
 	PAPER("paper", Game.CENTER_X - 32, 300), 
 	SCISSORS("scissors", Game.CENTER_X + 32 + 64, 300);
 	
@@ -19,12 +19,12 @@ public enum Choice {
 	public static int IMG_WIDTH = 64;
 	public static int IMG_HEIGHT = 64;
 	
-	//private Rectangle rectangle;
+	private Rectangle rectangle;
 	
 	private int x;
 	private int y;
 	
-	Choice(String choice, int x, int y) {
+	 Choice(String choice, int x, int y) {
 		choiceAsString = choice;
 		imgPath = choice + ".jpg";
 		this.x = x;
@@ -40,7 +40,15 @@ public enum Choice {
 			e.printStackTrace();
 		}
 		
-		//rectangle = new Rectangle
+		rectangle = new Rectangle(x, y, 64, 64);
+	}
+	 
+	public BufferedImage getImage() {
+		return img;
+	}
+	
+	public Rectangle getRectangle() {
+		return rectangle;
 	}
 	
 	public void setCoords(int x, int y) {
@@ -54,10 +62,6 @@ public enum Choice {
 	
 	public int getY() {
 		return y;
-	}
-	
-	public BufferedImage getImage() {
-		return img;
 	}
 	
 	public String getChoiceAsString() {
