@@ -53,9 +53,9 @@ public class Game implements KeyListener {
 	
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			//if (state == States.RESULTS) {
+			if (state == States.RESULTS) {
 				restartGame();
-			//}
+			}
 		}
 	}
 	
