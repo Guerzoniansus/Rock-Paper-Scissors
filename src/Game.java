@@ -1,8 +1,10 @@
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Random;
 
 
-public class Game {
+public class Game implements KeyListener {
 	
 	public static final String GAME_NAME = "Rock Paper Scissors";
 	public static final int WINDOW_WIDTH = 400;
@@ -16,6 +18,7 @@ public class Game {
 	public States state;
 	public Choice playerChoice;
 	public Choice enemyChoice;
+	public String winner;
 	
 	
 	public Game(GUI gui) {
@@ -34,30 +37,61 @@ public class Game {
 	
 	public void receiveClick(Point point) {
 		if (state == States.CHOOSING) {
+			
+			if (getClickedChoice(point) == null) {
+				return;
+			}
+			
 			playerChoice = getClickedChoice(point);
 			enemyChoice = generateRandomChoice();
+			winner = calculateWinner();
 			
-			System.out.println("Your choice: " + playerChoice.getChoiceAsString());
-			System.out.println("Opponents choice: " + enemyChoice.getChoiceAsString());
-			
-			System.out.println("The winner is: " + calculateWinner());
+			startCountdown();
 		}
 		
-		else if (state == States.COUNTDOWN) {
-			
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			//if (state == States.RESULTS) {
+				restartGame();
+			//}
 		}
+	}
+	
+	private void restartGame() {
+		state = States.CHOOSING;
+		gui.setupGame();
+	}
+	
+	public void startCountdown() {
+		state = States.COUNTDOWN;
+		gui.drawCountdown();
+	}
+	
+	public void showResults() {
+		state = States.RESULTS;
+		gui.drawResults();
+	}
+	
+	public void startResults() {
 		
-		else if (state == States.RESULTS) {
-			
-		}
+	}
+	
+	public Choice getEnemyChoice() {
+		return enemyChoice;
+	}
+	
+	public Choice getPlayerChoice() {
+		return playerChoice;
 	}
 	
 	private String calculateWinner() {
 		
 		if (playerChoice == Choice.ROCK && enemyChoice == Choice.ROCK
 				|| playerChoice == Choice.PAPER && enemyChoice == Choice.PAPER
-				|| playerChoice == Choice.SCISSORS && enemyChoice == Choice.PAPER) {
-			return "Draw";
+				|| playerChoice == Choice.SCISSORS && enemyChoice == Choice.SCISSORS) {
+			return "draw";
 		}
 		
 		else if (playerChoice == Choice.ROCK && enemyChoice == Choice.PAPER) {
@@ -102,6 +136,18 @@ public class Game {
 		int n = rand.nextInt(3);
 		
 		return Choice.ROCK.getChoices()[n];
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
