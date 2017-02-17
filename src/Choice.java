@@ -31,14 +31,14 @@ public enum Choice {
 		this.y = y;
 		
 		try {
-			img = ImageIO.read(new File(getClass().getResource(imgPath).toURI()));
+			img = ImageIO.read(getClass().getResourceAsStream(imgPath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		} //catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
 		
 		rectangle = new Rectangle(x, y, 64, 64);
 	}
