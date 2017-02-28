@@ -20,6 +20,9 @@ public class Game implements KeyListener {
 	public Choice enemyChoice;
 	public String winner;
 	
+	public int scorePlayer;
+	public int scoreOpponent;
+	
 	
 	public Game(GUI gui) {
 		this.gui = gui;
@@ -27,12 +30,15 @@ public class Game implements KeyListener {
 	
 	public void init() {
 		this.state = States.CHOOSING;
+		this.scorePlayer = 0;
+		this.scoreOpponent = 0;
 	}
 
 	public void startGame() {
 		init();
 		gui.setupWindow(Game.GAME_NAME, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
 		gui.setupGame();
+		
 	}
 	
 	public void receiveClick(Point point) {
@@ -46,7 +52,8 @@ public class Game implements KeyListener {
 			enemyChoice = generateRandomChoice();
 			winner = calculateWinner();
 			
-			startCountdown();
+			//startCountdown();
+			showResults();
 		}
 		
 	}
@@ -71,6 +78,15 @@ public class Game implements KeyListener {
 	
 	public void showResults() {
 		state = States.RESULTS;
+		
+		if (winner.equals("player")) {
+			scorePlayer++;
+		}
+		
+		else if (winner.equals("opponent")) {
+			scoreOpponent++;
+		}
+		
 		gui.drawResults();
 	}
 	

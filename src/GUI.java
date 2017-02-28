@@ -38,6 +38,7 @@ public class GUI {
 		frame.addKeyListener(game);
 	}
 	
+	
 	public void setupGame() {
 		int centerX = (Game.WINDOW_WIDTH / 2) - (Choice.IMG_WIDTH / 2);
 		
@@ -47,6 +48,7 @@ public class GUI {
 		g.drawImage(Choice.SCISSORS.getImage(), Choice.SCISSORS.getX(), Choice.SCISSORS.getY(), null);
 		
 		drawCenteredString(g, Game.MSG_START, 100);
+		drawCenteredString(g, "Player : " + game.scorePlayer + "          Computer: " + game.scoreOpponent, 60);
 	}
 	
 	public void drawResults() {
@@ -76,6 +78,7 @@ public class GUI {
 		
 		g.drawImage(game.getPlayerChoice().getImage(), playerX, 250, null);
 		g.drawImage(game.getEnemyChoice().getImage(), enemyX, 250, null);
+		drawCenteredString(g, "Player : " + game.scorePlayer + "          Computer: " + game.scoreOpponent, 60);
 	}
 
 	public JFrame getFrame() {
